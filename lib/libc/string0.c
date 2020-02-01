@@ -169,6 +169,21 @@ char *strcpy(char *dest, const char *src) {
     return dest;
 }
 
+char *strncpy(char *dst, const char *src, size_t n) {
+    char *q = dst;
+    const char *p = src;
+    char ch;
+    while (n) {
+        n--;
+        *q++ = ch = *p++;
+        if (!ch)
+            break;
+    }
+    /* The specs say strncpy() fills the entire buffer with NUL.  Sigh. */
+    memset(q, 0, n);
+    return dst;
+}
+
 // needed because gcc optimises strcpy + strcat to this
 char *stpcpy(char *dest, const char *src) {
     while (*src) {
